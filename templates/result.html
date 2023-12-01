@@ -101,7 +101,9 @@
     <div id = "sidebar"></div> -->
     <div class="container">
       <div class="column">
-        <button id="submit_button" type="submit" onclick="back_clicked()">Back</button>
+        <form action="/" method="get" enctype="multipart/form-data">
+          <button type="submit">Back</button>
+        </form>
       </div>
       <div id="resultContainer">
         <div id="result">
@@ -248,9 +250,6 @@
           newDiv.textContent = question;
           parentDiv.appendChild(newDiv);
         }
-      }
-      function back_clicked(){
-        window.location.href = 'index.html';
       }
     </script>
   </body>

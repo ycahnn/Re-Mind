@@ -6,6 +6,14 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.requests import Request
 from openai import OpenAI
 
+app = FastAPI()
+
+static_path = os.path.join(os.path.dirname(__file__), "static")
+templates_path = os.path.join(os.path.dirname(__file__), "templates")
+
+app.mount("/static", StaticFiles(directory=static_path), name="static")
+templates = Jinja2Templates(directory=templates_path)
+
 client = OpenAI(
     api_key="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",
 )
@@ -32,7 +40,7 @@ def parsing_question(wn):
     for problem in problems:
         print("문제 :", problem)
         print("-" * 50)  # 각 문제 사이에 구분선을 넣어 출력
-
+    return problems
 #parsing_question(wrong_note)
 
 def more_info(data):
@@ -64,8 +72,6 @@ def SummarizeWrongAnswerKeyword(data):
 
     # "Keyword:" 이전의 데이터와 키워드를 각각의 변수에 저장
     pre_keyword_data = pre_keyword_text
-    
-    keywords_list = [keyword.strip() for keyword in keywords_text.split(",")]
 
     # 결과 출력 또는 저장
     print("Pre-Keyword Data:")
@@ -73,40 +79,30 @@ def SummarizeWrongAnswerKeyword(data):
     print("=====================================")
     print("\nKeywords:")
 
-    for i in range(len(keywords_list)):
-        if i != len(keywords_list):print(keywords_list[i], end=", ")
-        else: print(keywords_list[i])
+    resultDict = {}
+    question = parsing_question(wrong_note)
+    keywordList = keywords_text.splitlines()
+    i = 0
+    for keyword in keywordList:
+        keyword1 = keyword[keyword.index("[") + 1: keyword.index(",")]
+        keyword2 = keyword[keyword.index(",") + 2: keyword.index("]")]
+        resultDict[question[i]] = [keyword1, keyword2]
+        i += 1
+    print(resultDict)
+    return resultDict
 
-    result_dict = {}
 
-    # 리스트를 순회하면서 각 항목을 딕셔너리로 변환
-    for item in keywords_list:
-        # 항목을 숫자, 알고리즘 이름, 설명 부분으로 나누기
-        parts = item.split(". ")
-        number = parts[0]
-        algorithm_name, description = parts[1].split("[")
-        # 괄호 안의 내용을 추출하여 리스트로 만들기
-        features = [feature.strip() for feature in description.rstrip("]").split(",")]
-
-        # 딕셔너리에 저장
-        result_dict[algorithm_name] = features
-
-    # 결과 출력
-    print(result_dict)
-    return keywords_list
-
-SummarizeWrongAnswerKeyword(content)
-app = FastAPI()
-
-static_path = os.path.join(os.path.dirname(__file__), "static")
-templates_path = os.path.join(os.path.dirname(__file__), "templates")
-
-app.mount("/static", StaticFiles(directory=static_path), name="static")
-templates = Jinja2Templates(directory=templates_path)
 
 @app.get("/")
 async def get_form(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
-#if __name__ == "__main__":
-#    uvicorn.run(app, host="0.0.0.0", port=80)
+
+
+@app.post("/remind/")
+async def add_note(request: Request):
+    #SummarizeWrongAnswerKeyword(content)
+    return templates.TemplateResponse("result.html", {"request": request})
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=80)

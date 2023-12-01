@@ -35,7 +35,10 @@
             </label>
             <input type="file" name="file" id="music_file" accept=".mp3,.wav" required onchange="updateFileName()">
         </div>     
-            <button id="submit_button" type="submit" onclick="submit_clicked()">Submit</button>
+            <form action="/remind/" method="post" enctype="multipart/form-data">
+                <button type="submit">Submit</button>
+            </form>
+
         </li>
     </ul>
     <script>
