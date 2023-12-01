@@ -100,12 +100,11 @@ async def get_form(request: Request):
 async def add_note(request: Request, file_sum: UploadFile = File(...), file_wrong: UploadFile = File(...)):
     summarize = await file_sum.read()
     wrong_note = await file_wrong.read()
-    summarize2 = str(summarize)
-    wrong_note2 = str(wrong_note)
+    summarize2 = (summarize).decode()
+    wrong_note2 = (wrong_note).decode()
     suma = "Summarize:" + summarize2
     wrong = "Wrong Answer note:" + wrong_note2 + "\n"
     content = suma + wrong + instructions
-
 
     add_sum, combine = SummarizeWrongAnswerKeyword(content, wrong)
     summarize2json = (summarize2+"added content"+ add_sum).lower()
