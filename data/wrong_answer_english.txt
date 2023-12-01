@@ -1,4 +1,4 @@
-Problem: Which choice does the Griddy algorithm always make in a given problem situation?
+Problem: Which choice does the Greedy algorithm always make in a given problem situation?
 A. Worst choice
 B. A random choice
 C. The optimal choice
