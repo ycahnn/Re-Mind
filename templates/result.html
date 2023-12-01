@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result</title>
+    <link rel="stylesheet" href="../static/styles.css">
+    <style>
+        #result {
+            width: 50rem;
+            height: 100%;
+            background-color: rgb(163, 160, 160);
+            margin: 0 auto
+        }
+
+        #sidebar {
+            width: 20rem;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            right: -20rem;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            color: white;
+        }
+
+        .highlight {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div id = "result"></div>
+    <div id = "sidebar"></div> -->
+    <div id="result"></div>
+    <div id="sidebar">
+        <ul>
+        </ul>
+    </div>
+    <script>
+
+        let testString = "hello what is your name? my name is youngchan my name is John";   //요약본
+
+
+        const myDict = {        //문항과, 해당 문항과 관련된 키워드
+            "question1": ["is", "my", "banana"],
+            "question2": ["red", "name", "blue"],
+            "question3": ["hi", "green", "my"],
+        };
+
+        // 딕셔너리의 모든 value를 하나의 배열로 합침
+        const allValues = Object.values(myDict).flat();
+
+        // 키워드 리스트
+        let keywords = [...new Set(allValues)];
+        console.log("keyword", keywords)
+        let keywords2 = [...keywords]
+        console.log("ketyword2", keywords2)
+        let tokens = testString.match(/\w+|\W+/g);
+
+        let resultList = [""];
+        for (let i = 0; i < tokens.length; i++) {   //키워드 기준으로 분할
+            let word = tokens[i];
+            // if (word.trim() !== "") { // This line is commented out since it is not present in the original Python code
+            if (keywords.includes(word)) {
+                resultList.push(word);
+                keywords.splice(keywords.indexOf(word), 1);
+                resultList.push("");
+            } else {
+                resultList[resultList.length - 1] += word;
+            }
+            // } // This line is commented out since it is not present in the original Python code
+        }
+        console.log("ketyword2", keywords2)
+        console.log(resultList)
+
+        console.log(keywords2.includes(resultList[1]))
+
+        function process() {
+            console.log("process run")
+            const parentDiv = document.getElementById('result');
+
+            for (word of resultList) {
+                if (keywords2.includes(word)) {
+                    console.log("keyword in")
+                    const newSpan = document.createElement('span');
+
+                    const button = document.createElement('button');
+                    button.textContent = word;
+                    button.classList.add('highlight')
+                    button.addEventListener('click', function () {
+                        buttonClick(button.textContent); // 버튼 클릭 시 실행할 함수 호출
+                    });
+
+                    newSpan.appendChild(button)
+                    parentDiv.appendChild(newSpan)
+                }
+                else {
+                    console.log("keyword out")
+
+                    const newSpan = document.createElement('span');
+                    newSpan.textContent = word;
+                    parentDiv.appendChild(newSpan)
+                }
+            }
+        }
+        process();
+
+        function buttonClick(word) {
+            console.log("word", word)
+            sidebarMove(); //사이드바 움직임
+            findKeysByValueInArray(word); //사이드바에 오답 추가
+        }
+
+        var sidebar_opened = 0
+        function sidebarMove() {
+            const myObject = document.getElementById('sidebar');
+            if (sidebar_opened == 0) {
+                myObject.style.transform = 'translateX(-100%)';
+                sidebar_opened = 1;
+            }
+            else if (sidebar_opened == 1) {
+                myObject.style.transform = 'translateX(0)';
+                sidebar_opened = 0;
+
+            }
+            console.log("move")
+        }
+
+
+
+
+
+
+        function findKeysByValueInArray(value) {
+            const foundKeys = [];
+            console.log("value", value)
+            for (const key in myDict) {
+                if (Array.isArray(myDict[key]) && myDict[key].includes(value)) {
+                    foundKeys.push(key);
+                }
+            }
+            console.log("keys",foundKeys)
+
+            const parentDiv = document.getElementById('sidebar');
+            while (parentDiv.firstChild) {
+                console.log("delete")
+
+                parentDiv.removeChild(parentDiv.firstChild);
+            }
+            for (question of foundKeys) {
+                console.log(question)
+                const newDiv = document.createElement('div');
+                newDiv.textContent = question;
+                parentDiv.appendChild(newDiv);
+            }
+        }
+    </script>
+</body>
+
+</html>

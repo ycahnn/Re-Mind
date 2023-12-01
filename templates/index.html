@@ -1,8 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../static/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safury</title>
+    <link rel="stylesheet" href="../static/styles.css">
+    <style>
+
+    </style>
 </head>
+
+<body>
+    <ul style="width: 100%;height: 100%">
+        <li id="slide1">
+            <div id="content">
+                <h1 id="title">MetaSync</h1>
+                <p id="description">MetaSync is a program which creates review notes for wrong answers<br>
+                    This program is specialized for...<br>1. Adding additional information that was not included in the previous summary
+                <br>2. Add link to the created summary which points to the incorrect answers</p>
+                <button id="start_button" onclick="scroll_down()">START</button>
+            </div>
+        </li>
+        <li id="slide2" style="width: 100%;height: 100%">
+            <button id="top_button" onclick="scroll_up()">TOP</button>
+            <h1 id="upload_files">Upload Files</h1>
+            <div style = "display: flex; width: 35rem;justify-content: space-between;">
+                <label id="music_file_label" for="music_file">
+                <div id="music_file_name">Click to upload summary</div>
+            </label>
+            <input type="file" name="file" id="music_file" accept=".mp3,.wav" required onchange="updateFileName()">
+            <label id="music_file_label" for="music_file">
+                <div id="music_file_name">Click to upload<br>wrong answer</div>
+            </label>
+            <input type="file" name="file" id="music_file" accept=".mp3,.wav" required onchange="updateFileName()">
+        </div>     
+            <button id="submit_button" type="submit" onclick="submit_clicked()">Submit</button>
+        </li>
+    </ul>
+    <script>
+        function scroll_down() {
+            const list = document.querySelectorAll('li');
+            list.forEach(li => {
+                li.style.transform = 'translateY(-100%)';
+            });
+        }
+
+        function scroll_up() {
+            const list = document.querySelectorAll('li');
+            list.forEach(li => {
+                li.style.transform = 'translateY(0%)';
+            });
+            location.reload(true);
+        }
+
+        function updateFileName() {
+            // 파일 입력 요소 가져오기
+            var fileInput = document.getElementById('music_file');
+
+            // 라벨 요소 가져오기
+            var fileLabel = document.getElementById('music_file_name');
+
+            // 선택된 파일이 있는지 확인
+            if (fileInput.files.length > 0) {
+                // 파일 이름 가져오기
+                var fileName = fileInput.files[0].name;
+
+                // 라벨에 파일 이름 표시
+                fileLabel.innerText = fileName;
+            } else {
+                // 파일이 선택되지 않았을 경우 기본 문구 표시
+                'Click to upload file';
+            }
+        }
+        function download_clicked() {
+            window.location.href = '/download/watermark.wav';
+        }
+    </script>
+</body>
 
 </html>
