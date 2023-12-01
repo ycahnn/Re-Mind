@@ -91,7 +91,7 @@ ul {
 
 #start_button {
     background-color: white;
-    color:black;
+    color: black;
     font-size: 1.2rem;
     font-weight: 500;
     border: none;
@@ -213,7 +213,8 @@ li {
     animation: fadeIn 1.5s ease-in;
     line-height: 2.5rem;
 }
-#slide3_button{
+
+#slide3_button {
     border: none;
     border-radius: 5px;
     background-color: #618264;
@@ -225,9 +226,11 @@ li {
     transition: background-color 0.2s ease-in-out;
     margin-bottom: 5rem;
 }
-#slide3_button:hover{
+
+#slide3_button:hover {
     background-color: #7ea982;
 }
+
 #submit_button:hover {
     background-color: rgb(80, 80, 80)
 }
@@ -284,6 +287,20 @@ body {
     border-radius: 5px;
 }
 
+#resultContainer::-webkit-scrollbar {
+    width: 10px;
+}
+
+#resultContainer::-webkit-scrollbar-thumb {
+    background-color: #dedede;
+}
+
+#resultContainer::-webkit-scrollbar-track {
+    background-color: rgb(241, 241, 241);
+}
+
+
+
 #result {
     width: 90%;
     height: 100%;
@@ -333,8 +350,8 @@ body {
     background-color: transparent;
     border: none;
     border-radius: 5rem;
-    margin-right:1rem;
-    margin-top:0.6rem;
+    margin-right: 1rem;
+    margin-top: 0.6rem;
     height: 2.2rem;
 }
 
@@ -351,7 +368,7 @@ body {
     width: 80%;
     word-wrap: break-word;
     margin-bottom: 3rem;
-    padding:1rem;
+    padding: 1rem;
     background-color: rgb(242, 242, 242);
     border-radius: 1rem;
 
@@ -372,7 +389,7 @@ body {
 
 .md-48 {
     font-size: 2rem !important;
-    color:grey;
+    color: grey;
     padding: 0;
     text-align: center;
-  }
+}
