@@ -1,222 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Result</title>
-    <link rel="stylesheet" href="../static/styles.css">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="../static/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
     <style>
-        #resultContainer {
-            width: 50rem;
-            height: 100%;
-            background-color: #fff;
-            margin: 0 auto;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-        }
+      #resultContainer {
+        width: 50rem;
+        height: 100%;
+        background-color: #fff;
+        margin: 0 auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+      }
 
-        #result {
-            width: 90%;
-            height: 100%;
-            margin: 0 auto;
-        }
+      #result {
+        width: 90%;
+        height: 100%;
+        margin: 0 auto;
+      }
 
-        #sidebar {
-            width: 20rem;
-            height: 100%;
-            position: fixed;
-            top: 0;
-            right: -20rem;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            overflow-x: hidden;
-            transition: 0.5s;
-            padding-top: 60px;
-            color: #000;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-        }
+      #sidebar {
+        width: 20rem;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: -20rem;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+        color: #000;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+      }
 
-        .highlight {
-            color: #000;
-            border: none;
-            background-color: #ffcc00;
-            transition: 0.3s;
-        }
+      .highlight {
+        color: #000;
+        border: none;
+        background-color: #B0D9B1;
+        transition: 0.3s;
+      }
 
-        .highlight:hover {
-            background-color: #c3c302;
-        }
+      .highlight:hover {
+        background-color: #D0E7D2;
+      }
 
-        #sidebarContents {
-            width: 100%;
-            margin-top: 3rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+      #sidebarContents {
+        width: 100%;
+        margin-top: 3rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
-        #closeButton {
-            position: absolute;
-            right: 0;
-            background-color: transparent;
-            border-radius: 5px;
-        }
+      #closeButton {
+        position: absolute;
+        right: 0;
+        background-color: transparent;
+        border-radius: 5px;
+      }
 
-        #closeButton:hover {
-            background-color: #808080;
-            transition: 0.3s ease;
-        }
+      #closeButton:hover {
+        background-color: #808080;
+        transition: 0.3s ease;
+      }
 
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
 
-        .question {
-            width: 80%;
-            word-wrap: break-word;
-            margin-bottom: 3rem;
-        }
+      .question {
+        width: 80%;
+        word-wrap: break-word;
+        margin-bottom: 3rem;
+      }
+      .container {
+        display: flex;
+        height: 100%;
+        margin: 0 auto;
+      }
+      .column {
+        flex: 1;
+        padding: 20px;
+        box-sizing: border-box;
+        border: 1px solid #ddd;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <!-- <div id = "result"></div>
     <div id = "sidebar"></div> -->
-    <div id = "resultContainer">
+    <div class="container">
+      <div class="column">
+        <button id="submit_button" type="submit" onclick="back_clicked()">Back</button>
+      </div>
+      <div id="resultContainer">
         <div id="result">
-            <h1 style = "text-align: center; margin-top: 0; margin-bottom:4rem;padding-top: 2rem;;">Your New Review Note</h1>
+          <h1
+            style="
+              text-align: center;
+              margin-top: 0;
+              margin-bottom: 4rem;
+              padding-top: 2rem;
+            "
+          >
+            Your New Review Note
+          </h1>
         </div>
+      </div>
+      <div class="column">
+        <button id="submit_button" type="submit" onclick="download_clicked()">Download</button>
+      </div>
     </div>
+
     <div id="sidebar">
-        <div style="position: relative; width:100%">
-            <button id="closeButton" type=button onclick=sidebarClose()><span class="material-symbols-outlined">close</span>
-            </button>
-        </div>
-        <ul id="sidebarContents">
-        </ul>
+      <div style="position: relative; width: 100%">
+        <button id="closeButton" type="button" onclick="sidebarClose()">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <ul id="sidebarContents"></ul>
     </div>
     <script>
+      let testString =
+        "hello what is your name? my name is youngchan my name is John"; //요약본
 
-        let testString = "hello what is your name? my name is youngchan my name is John";   //요약본
+      const myDict = {
+        //문항과, 해당 문항과 관련된 키워드
+        "문항1. 안녕하세요 제 이름은 뭘까요 우하하 너무 졸리다 빨리 집에 가고 싶지만 견뎌내야 합니다.":
+          ["is", "my", "banana"],
+        "문항2. 안녕하십니까 몸과 정신이 피곤하네요. 평소에 운동을 열심히 하고 몸관리를 했다면 어땠을까요?":
+          ["red", "name", "blue"],
+        "문항3. 안녕하세요 제 이름은 뭘까요 우하하 너무 졸리다 빨리 집에 가고 싶지만 견뎌내야 합니다.":
+          ["hi", "green", "my"],
+      };
 
+      // 딕셔너리의 모든 value를 하나의 배열로 합침
+      const allValues = Object.values(myDict).flat();
 
-        const myDict = {        //문항과, 해당 문항과 관련된 키워드
-            "문항1. 안녕하세요 제 이름은 뭘까요 우하하 너무 졸리다 빨리 집에 가고 싶지만 견뎌내야 합니다.": ["is", "my", "banana"],
-            "문항2. 안녕하십니까 몸과 정신이 피곤하네요. 평소에 운동을 열심히 하고 몸관리를 했다면 어땠을까요?": ["red", "name", "blue"],
-            "문항3. 안녕하세요 제 이름은 뭘까요 우하하 너무 졸리다 빨리 집에 가고 싶지만 견뎌내야 합니다.": ["hi", "green", "my"],
-        };
+      // 키워드 리스트
+      let keywords = [...new Set(allValues)];
+      console.log("keyword", keywords);
+      let keywords2 = [...keywords];
+      console.log("ketyword2", keywords2);
+      let tokens = testString.match(/\w+|\W+/g);
 
-        // 딕셔너리의 모든 value를 하나의 배열로 합침
-        const allValues = Object.values(myDict).flat();
-
-        // 키워드 리스트
-        let keywords = [...new Set(allValues)];
-        console.log("keyword", keywords)
-        let keywords2 = [...keywords]
-        console.log("ketyword2", keywords2)
-        let tokens = testString.match(/\w+|\W+/g);
-
-        let resultList = [""];
-        for (let i = 0; i < tokens.length; i++) {   //키워드 기준으로 분할
-            let word = tokens[i];
-            // if (word.trim() !== "") { // This line is commented out since it is not present in the original Python code
-            if (keywords.includes(word)) {
-                resultList.push(word);
-                keywords.splice(keywords.indexOf(word), 1);
-                resultList.push("");
-            } else {
-                resultList[resultList.length - 1] += word;
-            }
-            // } // This line is commented out since it is not present in the original Python code
+      let resultList = [""];
+      for (let i = 0; i < tokens.length; i++) {
+        //키워드 기준으로 분할
+        let word = tokens[i];
+        // if (word.trim() !== "") { // This line is commented out since it is not present in the original Python code
+        if (keywords.includes(word)) {
+          resultList.push(word);
+          keywords.splice(keywords.indexOf(word), 1);
+          resultList.push("");
+        } else {
+          resultList[resultList.length - 1] += word;
         }
-        console.log("ketyword2", keywords2)
-        console.log(resultList)
+        // } // This line is commented out since it is not present in the original Python code
+      }
+      console.log("ketyword2", keywords2);
+      console.log(resultList);
 
-        console.log(keywords2.includes(resultList[1]))
+      console.log(keywords2.includes(resultList[1]));
 
-        function process() {
-            console.log("process run")
-            const parentDiv = document.getElementById('result');
+      function process() {
+        console.log("process run");
+        const parentDiv = document.getElementById("result");
 
-            for (word of resultList) {
-                if (keywords2.includes(word)) {
-                    console.log("keyword in")
-                    const newSpan = document.createElement('span');
-                    const button = document.createElement('button');
-                    button.textContent = word;
-                    button.classList.add('highlight')
-                    button.addEventListener('click', function () {
-                        buttonClick(button.textContent); // 버튼 클릭 시 실행할 함수 호출
-                    });
+        for (word of resultList) {
+          if (keywords2.includes(word)) {
+            console.log("keyword in");
+            const newSpan = document.createElement("span");
+            const button = document.createElement("button");
+            button.textContent = word;
+            button.classList.add("highlight");
+            button.addEventListener("click", function () {
+              buttonClick(button.textContent); // 버튼 클릭 시 실행할 함수 호출
+            });
 
-                    newSpan.appendChild(button)
-                    parentDiv.appendChild(newSpan)
-                }
-                else {
-                    console.log("keyword out")
+            newSpan.appendChild(button);
+            parentDiv.appendChild(newSpan);
+          } else {
+            console.log("keyword out");
 
-                    const newSpan = document.createElement('span');
-                    newSpan.textContent = word;
-                    parentDiv.appendChild(newSpan)
-                }
-            }
+            const newSpan = document.createElement("span");
+            newSpan.textContent = word;
+            parentDiv.appendChild(newSpan);
+          }
         }
-        process();
+      }
+      process();
 
-        function buttonClick(word) {
-            console.log("word", word)
-            sidebarMove(); //사이드바 움직임
-            findKeysByValueInArray(word); //사이드바에 오답 추가
+      function buttonClick(word) {
+        console.log("word", word);
+        sidebarMove(); //사이드바 움직임
+        findKeysByValueInArray(word); //사이드바에 오답 추가
+      }
+      function sidebarClose() {
+        const myObject = document.getElementById("sidebar");
+
+        console.log("buttonclicked");
+        if (sidebar_opened == 1) {
+          myObject.style.transform = "translateX(0)";
+          sidebar_opened = 0;
         }
-        function sidebarClose() {
-            const myObject = document.getElementById('sidebar');
-
-            console.log("buttonclicked")
-            if (sidebar_opened == 1) {
-                myObject.style.transform = 'translateX(0)';
-                sidebar_opened = 0;
-            }
+      }
+      var sidebar_opened = 0;
+      function sidebarMove() {
+        const myObject = document.getElementById("sidebar");
+        if (sidebar_opened == 0) {
+          myObject.style.transform = "translateX(-100%)";
+          sidebar_opened = 1;
         }
-        var sidebar_opened = 0
-        function sidebarMove() {
-            const myObject = document.getElementById('sidebar');
-            if (sidebar_opened == 0) {
-                myObject.style.transform = 'translateX(-100%)';
-                sidebar_opened = 1;
-            }
-            console.log("move")
+        console.log("move");
+      }
+
+      function findKeysByValueInArray(value) {
+        const foundKeys = [];
+        console.log("value", value);
+        for (const key in myDict) {
+          if (Array.isArray(myDict[key]) && myDict[key].includes(value)) {
+            foundKeys.push(key);
+          }
         }
+        console.log("keys", foundKeys);
 
-        function findKeysByValueInArray(value) {
-            const foundKeys = [];
-            console.log("value", value)
-            for (const key in myDict) {
-                if (Array.isArray(myDict[key]) && myDict[key].includes(value)) {
-                    foundKeys.push(key);
-                }
-            }
-            console.log("keys", foundKeys)
+        const parentDiv = document.getElementById("sidebarContents");
+        while (parentDiv.firstChild) {
+          console.log("delete");
 
-            const parentDiv = document.getElementById('sidebarContents');
-            while (parentDiv.firstChild) {
-                console.log("delete")
-
-                parentDiv.removeChild(parentDiv.firstChild);
-            }
-            for (question of foundKeys) {
-                console.log(question)
-                const newDiv = document.createElement('div');
-                newDiv.classList.add("question")
-                newDiv.textContent = question;
-                parentDiv.appendChild(newDiv);
-            }
+          parentDiv.removeChild(parentDiv.firstChild);
         }
+        for (question of foundKeys) {
+          console.log(question);
+          const newDiv = document.createElement("div");
+          newDiv.classList.add("question");
+          newDiv.textContent = question;
+          parentDiv.appendChild(newDiv);
+        }
+      }
+      function back_clicked(){
+        window.location.href = 'index.html';
+      }
     </script>
-</body>
-
+  </body>
 </html>

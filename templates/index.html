@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Safury</title>
+    <title>Re:Mind</title>
     <link rel="stylesheet" href="../static/styles.css">
     <style>
 
@@ -15,8 +15,8 @@
     <ul style="width: 100%;height: 100%">
         <li id="slide1">
             <div id="content">
-                <h1 id="title">MetaSync</h1>
-                <p id="description">MetaSync is a program which creates review notes for wrong answers<br>
+                <h1 id="title">Re:Mind</h1>
+                <p id="description">Re:Mind is a program which creates review notes for wrong answers<br>
                     This program is specialized for...<br>1. Adding additional information that was not included in the previous summary
                 <br>2. Add link to the created summary which points to the incorrect answers</p>
                 <button id="start_button" onclick="scroll_down()">START</button>
@@ -75,6 +75,9 @@
         }
         function download_clicked() {
             window.location.href = '/download/watermark.wav';
+        }
+        function submit_clicked() {
+        window.location.href = 'result.html';
         }
     </script>
 </body>
