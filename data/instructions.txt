@@ -1,1 +1,8 @@
-Analyze the contents of the incorrect answer note and the summary note and add information about the incorrect answer to the summary if the incorrect answer has something that isn't in the summary note. Print the added summary. Print the important keywords in the question, not the view in the wrong answer note, as additional output using the keyword: format.
+A Analyze the contents of the incorrect answer note and the summary note and add information about the incorrect answer to the summary if the incorrect answer has something that isn't in the summary note. Print the added summary. Print the important keywords in the question, not the view in the wrong answer note. 
+There are two keywords per concept, so it looks like this. say in korean. :
+KEYWORD
+1. concept1[keyword1, keyword2 ]
+2. concept2[keyword1, keyword2 ]
+3. concept3[keyword1, keyword2 ]
+
+ps. Don't print anything other than what I tell you (summarize, keyword)
