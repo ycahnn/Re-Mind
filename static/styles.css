@@ -68,7 +68,7 @@ body {
     padding: 10px 20px;
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
-    margin-bottom: 3rem;
+    margin-bottom: 5rem;
 }
 
 html {
@@ -111,16 +111,14 @@ ul {
     position: absolute;
     border-radius: 5px;
     border: none;
-    /*background-color: #1c1c1e;
-color: #fff;*/
-    background-color: #fff;
-    color: #1c1c1e;
+    background-color: black;
+    color: #fff;
     font-size: 1.2rem;
     font-weight: 500;
     padding: 10px 20px;
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
-    right: 5rem;
+    left: 5rem;
     top: 2rem;
 }
 
