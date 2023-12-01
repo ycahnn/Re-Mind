@@ -89,7 +89,7 @@ def SummarizeWrongAnswerKeyword(data):
         resultDict[question[i]] = [keyword1, keyword2]
         i += 1
     print(resultDict)
-    return resultDict
+    return pre_keyword_data, resultDict
 
 @app.get("/")
 async def get_form(request: Request):
@@ -97,8 +97,9 @@ async def get_form(request: Request):
 
 @app.post("/remind/")
 async def add_note(request: Request):
-    summarize2json = summarize.lower()
-    combine = SummarizeWrongAnswerKeyword(content)
+    add_sum, combine = SummarizeWrongAnswerKeyword(content)
+    summarize2json = (summarize+"*****************"+ add_sum).lower()
+
     combine_json = json.dumps(combine)
     return templates.TemplateResponse("result.html", {"request": request, "sum" : summarize2json, "combine": combine_json}) 
 
