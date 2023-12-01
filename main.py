@@ -104,7 +104,7 @@ async def get_form(request: Request):
 async def add_note(request: Request):
     summarize2json = summarize
     #combine = SummarizeWrongAnswerKeyword(content)
-    combine = {"What choice does the Grady algorithm always make in a given problem situation:\nA. Worst choice\nB. Random choice\nC. Optimal choice\nD. First choice\nCorrect answer: C\nIncorrect answer: B": ['Greedy', 'optimal choice'], 'Dynamic programming is most effective for problems with which characteristics:\nA. Overlapping subproblems\nB. Non-overlapping subproblems\nC. Independent subproblems\nD. All subproblems\nCorrect answer: A\nIncorrect answer: B': ['Dynamic', 'overlapping subproblems'], 'In which way does the backtracking algorithm solve the problem:\nA. Bottom-up approach\nB. Top-down approach\nC. Both\nD. Neither\nCorrect Answer: B\nIncorrect Answer: A': ['transforming', 'simplification']}
+    combine = {"What choice does the Greedy algorithm always make in a given problem situation:\nA. Worst choice\nB. Random choice\nC. Optimal choice\nD. First choice\nCorrect answer: C\nIncorrect answer: B": ['Greedy', 'optimal choice'], 'Dynamic programming is most effective for problems with which characteristics:\nA. Overlapping subproblems\nB. Non-overlapping subproblems\nC. Independent subproblems\nD. All subproblems\nCorrect answer: A\nIncorrect answer: B': ['Dynamic', 'overlapping subproblems'], 'In which way does the backtracking algorithm solve the problem:\nA. Bottom-up approach\nB. Top-down approach\nC. Both\nD. Neither\nCorrect Answer: B\nIncorrect Answer: A': ['transforming', 'simplification']}
     combine_json = json.dumps(combine)
     return templates.TemplateResponse("result.html", {"request": request, "sum" : summarize2json, "combine": combine_json}) 
 
