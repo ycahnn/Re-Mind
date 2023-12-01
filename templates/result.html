@@ -6,12 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Result</title>
     <link rel="stylesheet" href="../static/styles.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <style>
-        #result {
+        #resultContainer {
             width: 50rem;
             height: 100%;
-            background-color: rgb(163, 160, 160);
+            background-color: rgb(255, 255, 255);   
             margin: 0 auto
+        }
+        #result{
+            width: 90%;
+            height: 100%;
+            margin:0 auto;
         }
 
         #sidebar {
@@ -20,25 +27,77 @@
             position: fixed;
             top: 0;
             right: -20rem;
-            background-color: #111;
+            background-color: #ffffff;
+           
             overflow-x: hidden;
             transition: 0.5s;
             padding-top: 60px;
-            color: white;
+            color: rgb(0, 0, 0);
+            padding: 0;
+            display: flex;
+            flex-direction: column;
         }
 
         .highlight {
-            color: red;
+            color: black;
+            border:none;
+            background-color: yellow;
         }
+        .highlight:hover{
+            background-color: rgb(195, 195, 2);
+        }
+
+        #sidebarContents {
+            width: 100%;
+            margin-top: 3rem;
+            display: flex;
+            /* border: 1px solid black; ] */
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #closeButton {
+            position: absolute;
+            right: 0;
+            background-color: transparent;
+            border-radius: 5px;
+        }
+        #closeButton:hover{
+            background-color: grey;
+            transition: 0.3s ease;
+            
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24
+        }
+        .question{
+            width: 80%;
+            word-wrap: break-word;
+            margin-bottom: 3rem;
+        }
+    </style>
     </style>
 </head>
 
 <body>
     <!-- <div id = "result"></div>
     <div id = "sidebar"></div> -->
-    <div id="result"></div>
+    <div id = "resultContainer">
+        <div id="result">
+            <h1 style = "text-align: center; margin-top: 0; margin-bottom:4rem;padding-top: 2rem;;">Your New Review Note</h1>
+        </div>
+    </div>
     <div id="sidebar">
-        <ul>
+        <div style="position: relative; width:100%">
+            <button id="closeButton" type=button onclick=sidebarClose()><span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <ul id="sidebarContents">
         </ul>
     </div>
     <script>
@@ -47,9 +106,9 @@
 
 
         const myDict = {        //문항과, 해당 문항과 관련된 키워드
-            "question1": ["is", "my", "banana"],
-            "question2": ["red", "name", "blue"],
-            "question3": ["hi", "green", "my"],
+            "문항1. 안녕하세요 제 이름은 뭘까요 우하하 너무 졸리다 빨리 집에 가고 싶지만 견뎌내야 합니다.": ["is", "my", "banana"],
+            "문항2. 안녕하십니까 몸과 정신이 피곤하네요. 평소에 운동을 열심히 하고 몸관리를 했다면 어땠을까요?": ["red", "name", "blue"],
+            "문항3. 안녕하세요 제 이름은 뭘까요 우하하 너무 졸리다 빨리 집에 가고 싶지만 견뎌내야 합니다.": ["hi", "green", "my"],
         };
 
         // 딕셔너리의 모든 value를 하나의 배열로 합침
@@ -88,7 +147,6 @@
                 if (keywords2.includes(word)) {
                     console.log("keyword in")
                     const newSpan = document.createElement('span');
-
                     const button = document.createElement('button');
                     button.textContent = word;
                     button.classList.add('highlight')
@@ -115,7 +173,15 @@
             sidebarMove(); //사이드바 움직임
             findKeysByValueInArray(word); //사이드바에 오답 추가
         }
+        function sidebarClose() {
+            const myObject = document.getElementById('sidebar');
 
+            console.log("buttonclicked")
+            if (sidebar_opened == 1) {
+                myObject.style.transform = 'translateX(0)';
+                sidebar_opened = 0;
+            }
+        }
         var sidebar_opened = 0
         function sidebarMove() {
             const myObject = document.getElementById('sidebar');
@@ -123,18 +189,8 @@
                 myObject.style.transform = 'translateX(-100%)';
                 sidebar_opened = 1;
             }
-            else if (sidebar_opened == 1) {
-                myObject.style.transform = 'translateX(0)';
-                sidebar_opened = 0;
-
-            }
             console.log("move")
         }
-
-
-
-
-
 
         function findKeysByValueInArray(value) {
             const foundKeys = [];
@@ -144,9 +200,9 @@
                     foundKeys.push(key);
                 }
             }
-            console.log("keys",foundKeys)
+            console.log("keys", foundKeys)
 
-            const parentDiv = document.getElementById('sidebar');
+            const parentDiv = document.getElementById('sidebarContents');
             while (parentDiv.firstChild) {
                 console.log("delete")
 
@@ -155,6 +211,7 @@
             for (question of foundKeys) {
                 console.log(question)
                 const newDiv = document.createElement('div');
+                newDiv.classList.add("question")
                 newDiv.textContent = question;
                 parentDiv.appendChild(newDiv);
             }
