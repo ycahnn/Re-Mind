@@ -10,6 +10,16 @@ client = OpenAI(
     api_key="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",
 )
 
+with open("./data/summarize.txt", "r", encoding='utf-8') as file:
+    summarize = file.read().strip()
+content = "요약본:" + summarize
+with open("./data/wrong_answer.txt", "r", encoding='utf-8') as file:
+    wrong_note = file.read().strip()
+with open("./data/instructions.txt", "r", encoding='utf-8') as file:
+    instructions = file.read().strip()
+wrong_note = "오답노트:" + wrong_note + "\n"
+content = content + wrong_note + instructions
+
 def more_info(data):
     response = client.chat.completions.create(
         messages=[
@@ -28,21 +38,32 @@ def more_info(data):
     )
     
     gpt3_Prescription_response = response.choices[0].message.content
-    print(gpt3_Prescription_response) 
     return gpt3_Prescription_response
 
-with open("./data/summarize.txt", "r", encoding='utf-8') as file:
-    summarize = file.read().strip()
-content = "요약본:" + summarize
-with open("./data/wrong_answer.txt", "r", encoding='utf-8') as file:
-    wrong_note = file.read().strip()
+def SummarizeWrongAnswerKeyword(data):
+    Answer = more_info(data)
 
-wrong_note = "오답노트:" + wrong_note + "\n"
-instructions = ": Analyze the contents of the wrong answer note and the summary note and add information about the wrong answer to the summary if the wrong answer has something that isn't in the summary note. Prints added summaries."
-content = content + wrong_note + instructions
-print(content)
-more_info(content)
+    # "Keyword:" 이전의 문자열 추출
+    keyword_start = Answer.find("Keyword:") if "Keyword:" in Answer else Answer.find("키워드:")
+    pre_keyword_text = Answer[:keyword_start].strip()
 
+    # "Keyword:" 이후의 문자열 추출
+    keywords_start = keyword_start + len("Keyword:") if "Keyword:" in Answer else keyword_start + len("키워드:")
+    keywords_text = Answer[keywords_start:].strip()
+
+    # "Keyword:" 이전의 데이터와 키워드를 각각의 변수에 저장
+    pre_keyword_data = pre_keyword_text
+    keywords_list = [keyword.strip() for keyword in keywords_text.split(",")]
+
+    # 결과 출력 또는 저장
+    print("Pre-Keyword Data:")
+    print(pre_keyword_data)
+    print("=====================================")
+    print("\nKeywords:")
+    for keyword in keywords_list:
+        print(keyword)
+
+SummarizeWrongAnswerKeyword(content)
 app = FastAPI()
 
 static_path = os.path.join(os.path.dirname(__file__), "static")
