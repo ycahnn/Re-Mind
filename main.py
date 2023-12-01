@@ -10,13 +10,13 @@ client = OpenAI(
     api_key="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",
 )
 
-def exercise_plan(data):
+def more_info(data):
     response = client.chat.completions.create(
         messages=[
             {
             "role": "assistant",
 
-                "content": content2
+                "content": content
             },
             {
             "role": "user",
@@ -32,9 +32,13 @@ def exercise_plan(data):
     return gpt3_Prescription_response
 
 with open("./data/summarize.txt", "r", encoding='utf-8') as file:
-    content = file.read().strip()
+    summarize = file.read().strip()
+content = "요약본:" + summarize
 with open("./data/wrong_answer.txt", "r", encoding='utf-8') as file:
-    content2 = file.read().strip()
+    wrong_note = file.read().strip()
+wrong_note = "오답노트:" + wrong_note
+instructions = "Analyze the content of the wrong answer notes and the summary and add information about the wrong answer to the summary if there's something in the wrong answer that isn't summarized.  A Print only the modified summary."
+content = content + wrong_note + instructions
 
 app = FastAPI()
 
