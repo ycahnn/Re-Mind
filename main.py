@@ -5,6 +5,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.requests import Request
 from openai import OpenAI
+import json
 
 app = FastAPI()
 
@@ -18,10 +19,10 @@ client = OpenAI(
     api_key="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",
 )
 
-with open("./data/summarize.txt", "r", encoding='utf-8') as file:
+with open("./data/summarize_english.txt", "r", encoding='utf-8') as file:
     summarize = file.read().strip()
 content = "요약본:" + summarize
-with open("./data/wrong_answer.txt", "r", encoding='utf-8') as file:
+with open("./data/wrong_answer_english.txt", "r", encoding='utf-8') as file:
     wrong_note = file.read().strip()
 with open("./data/instructions.txt", "r", encoding='utf-8') as file:
     instructions = file.read().strip()
@@ -101,8 +102,11 @@ async def get_form(request: Request):
 
 @app.post("/remind/")
 async def add_note(request: Request):
-    #SummarizeWrongAnswerKeyword(content)
-    return templates.TemplateResponse("result.html", {"request": request})
+    summarize2json = summarize
+    #combine = SummarizeWrongAnswerKeyword(content)
+    combine = {"What choice does the Grady algorithm always make in a given problem situation:\nA. Worst choice\nB. Random choice\nC. Optimal choice\nD. First choice\nCorrect answer: C\nIncorrect answer: B": ['Griddy', 'Problem situation'], 'Dynamic programming is most effective for problems with which characteristics:\nA. Overlapping subproblems\nB. Non-overlapping subproblems\nC. Independent subproblems\nD. All subproblems\nCorrect answer: A\nIncorrect answer: B': ['Dynamic', 'Optimization Problem'], 'In which way does the backtracking algorithm solve the problem:\nA. Bottom-up approach\nB. Top-down approach\nC. Both\nD. Neither\nCorrect Answer: B\nIncorrect Answer: A': ['top-down approach', 'stop exploring']}
+    combine_json = json.dumps(combine)
+    return templates.TemplateResponse("result.html", {"request": request, "sum" : summarize2json, "combine": combine_json}) 
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=80)

@@ -4,71 +4,52 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Result</title>
-    <link rel="stylesheet" href="../static/result_styles.css" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-    />
-  </head>
+    
+    <link rel="stylesheet" href="../static/styles.css" />
 
+    
+  </head>
   <body>
-    <!-- <div id = "result"></div>
-    <div id = "sidebar"></div> -->
     <div class="container">
-      <div class="column">
-        <form action="/" method="get" enctype="multipart/form-data">
-          <button type="submit">Back</button>
-        </form>
-      </div>
-      <div id="resultContainer">
-        <div id="result">
-          <h1
-            style="
-              text-align: center;
-              margin-top: 0;
-              margin-bottom: 4rem;
-              padding-top: 2rem;
-            "
-          >
-            Your New Review Note
-          </h1>
+        <div class="column">
+            <form action="/" method="get" enctype="multipart/form-data">
+                <button type="submit">Back</button>
+            </form>
         </div>
-      </div>
-      <div class="column">
-        <button id="submit_button" type="submit" onclick="download_clicked()">Download</button>
-      </div>
+        <div id="resultContainer">
+            <div id="result">
+                <h1>Your New Review Note</h1>
+            </div>
+        </div>
+        <div class="column">
+            <button id="submit_button" type="submit" onclick="download_clicked()">Download</button>
+        </div>
     </div>
 
     <div id="sidebar">
-      <div style="position: relative; width: 100%">
-        <button id="closeButton" type="button" onclick="sidebarClose()">
-          <span class="material-symbols-outlined">close</span>
-        </button>
-      </div>
-      <ul id="sidebarContents"></ul>
+        <div>
+            <button id="closeButton" type="button" onclick="sidebarClose()">close</button>
+        </div>
+        <ul id="sidebarContents"></ul>
     </div>
+  
     <script>
-      let testString =
-        "hello what is your name? my name is youngchan my name is John"; //요약본
+      let testString = {{sum | tojson}};
+ 
+      console.log("testString", typeof(testString));
+      //let testString = "hello what is your name? my name is youngchan my name is John";
 
-      const myDict = {
-        //문항과, 해당 문항과 관련된 키워드
-        "문항1. 안녕하세요 제 이름은 뭘까요 우하하 너무 졸리다 빨리 집에 가고 싶지만 견뎌내야 합니다.":
-          ["is", "my", "banana"],
-        "문항2. 안녕하십니까 몸과 정신이 피곤하네요. 평소에 운동을 열심히 하고 몸관리를 했다면 어땠을까요?":
-          ["red", "name", "blue"],
-        "문항3. 안녕하세요 제 이름은 뭘까요 우하하 너무 졸리다 빨리 집에 가고 싶지만 견뎌내야 합니다.":
-          ["hi", "green", "my"],
-      };
+      let jsonString = {{ combine | tojson }};
+      let myDict = JSON.parse(jsonString);
+
+      console.log("myDict", myDict);
 
       // 딕셔너리의 모든 value를 하나의 배열로 합침
       const allValues = Object.values(myDict).flat();
 
       // 키워드 리스트
       let keywords = [...new Set(allValues)];
-      console.log("keyword", keywords);
       let keywords2 = [...keywords];
-      console.log("ketyword2", keywords2);
       let tokens = testString.match(/\w+|\W+/g);
 
       let resultList = [""];
@@ -85,10 +66,10 @@
         }
         // } // This line is commented out since it is not present in the original Python code
       }
-      console.log("ketyword2", keywords2);
-      console.log(resultList);
+      console.log("keyword2", keywords2);
+      console.log("result", resultList);
 
-      console.log(keywords2.includes(resultList[1]));
+      console.log(keywords2.includes(resultList[0]));
 
       function process() {
         console.log("process run");

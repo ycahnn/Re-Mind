@@ -1,0 +1,23 @@
+Problem: Which choice does the Griddy algorithm always make in a given problem situation?
+A. Worst choice
+B. A random choice
+C. The optimal choice
+D. The first choice
+Correct Answer: C
+Incorrect Answer: B
+
+Question : Dynamic programming is most effective for problems with which characteristic?
+A. Overlapping subproblems
+B. Non-overlapping subproblems
+C. Independent subproblems
+D. All subproblems
+Correct Answer: A
+Incorrect Answer: B
+
+Problem: In which way does the backtracking algorithm solve the problem?
+A. Bottom-up approach
+B. Top-down approach
+C. Both
+D. Neither
+Correct Answer: B
+Incorrect Answer: A
