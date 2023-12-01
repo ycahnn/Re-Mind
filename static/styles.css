@@ -213,7 +213,21 @@ li {
     animation: fadeIn 1.5s ease-in;
     line-height: 2.5rem;
 }
-
+#slide3_button{
+    border: none;
+    border-radius: 5px;
+    background-color: #618264;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    margin-bottom: 5rem;
+}
+#slide3_button:hover{
+    background-color: #7ea982;
+}
 #submit_button:hover {
     background-color: rgb(80, 80, 80)
 }
@@ -298,6 +312,7 @@ body {
     border: none;
     background-color: #B0D9B1;
     transition: 0.3s;
+    font-size: 1rem;
 }
 
 .highlight:hover {
@@ -306,7 +321,7 @@ body {
 
 #sidebarContents {
     width: 100%;
-    margin-top: 3rem;
+    margin-top: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -316,11 +331,15 @@ body {
     position: absolute;
     right: 0;
     background-color: transparent;
-    border-radius: 5px;
+    border: none;
+    border-radius: 5rem;
+    margin-right:1rem;
+    margin-top:0.6rem;
+    height: 2.2rem;
 }
 
 #closeButton:hover {
-    background-color: #808080;
+    background-color: rgb(223, 223, 223);
     transition: 0.3s ease;
 }
 
@@ -332,6 +351,10 @@ body {
     width: 80%;
     word-wrap: break-word;
     margin-bottom: 3rem;
+    padding:1rem;
+    background-color: rgb(242, 242, 242);
+    border-radius: 1rem;
+
 }
 
 .container {
@@ -347,4 +370,9 @@ body {
     border: 1px solid #ddd;
 }
 
-
+.md-48 {
+    font-size: 2rem !important;
+    color:grey;
+    padding: 0;
+    text-align: center;
+  }
