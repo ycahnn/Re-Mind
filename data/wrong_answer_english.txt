@@ -6,7 +6,7 @@ D. The first choice
 Correct Answer: C
 Incorrect Answer: B
 
-Question : Dynamic programming is most effective for problems with which characteristic?
+Problem: Dynamic programming is most effective for problems with which characteristic?
 A. Overlapping subproblems
 B. Non-overlapping subproblems
 C. Independent subproblems
