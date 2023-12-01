@@ -28,19 +28,19 @@
             <button id="top_button" onclick="scroll_up()">HOME</button>
             <h1 id="upload_files">Upload Files</h1>
             
-            <form action="/remind/" method="post" enctype="multipart/form-data">
+            <form  style = "display: flex;align-items: center;flex-direction: column;"action="/remind/" method="post" enctype="multipart/form-data">
                 <div style="display: flex; width: 35rem; justify-content: space-between;">
-                    <label id="summary_file_label" for="file_sum">
-                        <div id="summary_file_name">Click to upload<br> summary</div>
-                        <input type="file" name="file_sum" id="file_sum" accept=".txt" required onchange="updateFileName()">
+                    <label style = "width: 15rem;height:15rem;border:1px solid black;display:flex;flex-direction: column;justify-content: center;" id="summary_file_label" for="file_sum">
+                        <div style = "text-align: center;"id="summary_file_name">Click to upload<br> summary</div>
+                        <input style = "display:none" type="file" name="file_sum" id="file_sum" accept=".txt" required onchange="updateFileName()">
                     </label>
             
-                    <label id="wrong_answer_file_label" for="file_wrong">
-                        <div id="wrong_answer_file_name">Click to upload<br> wrong answer</div>
-                        <input type="file" name="file_wrong" id="file_wrong" accept=".txt" required onchange="updateFileName()">
+                    <label style = "width: 15rem;height:15rem;border:1px solid black;display:flex;flex-direction: column;justify-content: center;" id="wrong_answer_file_label" for="file_wrong">
+                        <div style = "text-align: center;" id="wrong_answer_file_name">Click to upload<br> wrong answer</div>
+                        <input style = "display:none" type="file" name="file_wrong" id="file_wrong" accept=".txt" required onchange="updateFileName2()">
                     </label>
                 </div>
-                <button id="submit_button" type="submit">Submit</button>
+                <button style = "" id="submit_button" type="submit">Submit</button>
             </form>
             
         </li>
@@ -63,21 +63,55 @@
 
         function updateFileName() {
             // 파일 입력 요소 가져오기
-            var fileInput = document.getElementById('music_file');
+            var fileInput1 = document.getElementById('file_sum');
+           
+
 
             // 라벨 요소 가져오기
-            var fileLabel = document.getElementById('music_file_name');
+            var fileLabel1 = document.getElementById('summary_file_name');
+
 
             // 선택된 파일이 있는지 확인
-            if (fileInput.files.length > 0) {
+            if (fileInput1.files.length > 0) {
                 // 파일 이름 가져오기
-                var fileName = fileInput.files[0].name;
+                var fileName = fileInput1.files[0].name;
 
                 // 라벨에 파일 이름 표시
-                fileLabel.innerText = fileName;
+                fileLabel1.innerText = fileName;
             } else {
                 // 파일이 선택되지 않았을 경우 기본 문구 표시
-                'Click to upload file';
+                'Click to upload summary';
+            }
+
+            if (fileInput2.files.length > 0) {
+                // 파일 이름 가져오기
+                var fileName = fileInput2.files[0].name;
+
+                // 라벨에 파일 이름 표시
+                fileLabel2.innerText = fileName;
+            } else {
+                // 파일이 선택되지 않았을 경우 기본 문구 표시
+                'Click to upload wrong answers';
+            }
+        }
+        function updateFileName2() {
+            // 파일 입력 요소 가져오기
+           
+            var fileInput2 = document.getElementById('file_wrong');
+
+
+            var fileLabel2 = document.getElementById('wrong_answer_file_name');
+
+
+            if (fileInput2.files.length > 0) {
+                // 파일 이름 가져오기
+                var fileName = fileInput2.files[0].name;
+
+                // 라벨에 파일 이름 표시
+                fileLabel2.innerText = fileName;
+            } else {
+                // 파일이 선택되지 않았을 경우 기본 문구 표시
+                'Click to upload wrong answers';
             }
         }
     </script>

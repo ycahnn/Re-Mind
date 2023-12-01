@@ -68,6 +68,7 @@ body {
     padding: 10px 20px;
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
+    margin-top: 3rem;
     margin-bottom: 5rem;
 }
 
