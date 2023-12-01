@@ -107,7 +107,7 @@ async def add_note(request: Request, file_sum: UploadFile = File(...), file_wron
     content = suma + wrong + instructions
 
     add_sum, combine = SummarizeWrongAnswerKeyword(content, wrong)
-    summarize2json = (summarize2+"added content"+ add_sum).lower()
+    summarize2json = (summarize2+" < Added Contents > "+ add_sum).lower()
 
     combine_json = json.dumps(combine)
     return templates.TemplateResponse("result.html", {"request": request, "sum" : summarize2json, "combine": combine_json})
