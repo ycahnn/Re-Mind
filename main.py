@@ -3,6 +3,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+from fastapi import FastAPI, File, HTTPException, UploadFile, Form
 from fastapi.requests import Request
 from openai import OpenAI
 import json
@@ -20,16 +21,16 @@ client = OpenAI(
     
 )
 
-with open("./data/summarize_english.txt", "r", encoding='utf-8') as file:
-    summarize = file.read().strip()
-content = "Summarize:" + summarize
-with open("./data/wrong_answer_english.txt", "r", encoding='utf-8') as file:
-    wrong_note = file.read().strip()
+#with open("./data/summarize_english.txt", "r", encoding='utf-8') as file:
+#    summarize = file.read().strip()
+#content = "Summarize:" + summarize
+#with open("./data/wrong_answer_english.txt", "r", encoding='utf-8') as file:
+#    wrong_note = file.read().strip()
 with open("./data/instructions.txt", "r", encoding='utf-8') as file:
     instructions = file.read().strip()
 
-wrong_note = "Wrong Answer note:" + wrong_note + "\n"
-content = content + wrong_note + instructions
+#wrong_note = "Wrong Answer note:" + wrong_note + "\n"
+#content = content + wrong_note + instructions
 
 def parsing_question(wn):
     print("*" * 50)
@@ -59,7 +60,7 @@ def more_info(data):
     gpt4_Prescription_response = response.choices[0].message.content
     return gpt4_Prescription_response
 
-def SummarizeWrongAnswerKeyword(data):
+def SummarizeWrongAnswerKeyword(data, wrong_note):
     Answer = more_info(data)
     print(Answer)
     print("=====================================================================================================")
@@ -96,12 +97,22 @@ async def get_form(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 @app.post("/remind/")
-async def add_note(request: Request):
-    add_sum, combine = SummarizeWrongAnswerKeyword(content)
-    summarize2json = (summarize+"*****************"+ add_sum).lower()
+async def add_note(request: Request, file_sum: UploadFile = File(...), file_wrong: UploadFile = File(...)):
+    summarize = await file_sum.read()
+    wrong_note = await file_wrong.read()
+    summarize2 = str(summarize)
+    wrong_note2 = str(wrong_note)
+    suma = "Summarize:" + summarize2
+    wrong = "Wrong Answer note:" + wrong_note2 + "\n"
+    content = suma + wrong + instructions
+
+
+    add_sum, combine = SummarizeWrongAnswerKeyword(content, wrong)
+    summarize2json = (summarize2+"added content"+ add_sum).lower()
 
     combine_json = json.dumps(combine)
-    return templates.TemplateResponse("result.html", {"request": request, "sum" : summarize2json, "combine": combine_json}) 
+    return templates.TemplateResponse("result.html", {"request": request, "sum" : summarize2json, "combine": combine_json})
+    #return templates.TemplateResponse("result.html", {"request": request})  
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=80)

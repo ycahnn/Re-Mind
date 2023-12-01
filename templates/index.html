@@ -17,28 +17,32 @@
             <div id="content">
                 <h1 id="title">Re:Mind</h1>
                 <p id="description">Re:Mind is a program which creates review notes for wrong answers<br>
-                    This program is specialized for...<br>1. Adding additional information that was not included in the previous summary
-                <br>2. Add link to the created summary which points to the incorrect answers</p>
+                    This program is specialized for...<br>1. Adding additional information that was not included in the
+                    previous summary
+                    <br>2. Add link to the created summary which points to the incorrect answers
+                </p>
                 <button id="start_button" onclick="scroll_down()">START</button>
             </div>
         </li>
         <li id="slide2" style="width: 100%;height: 100%">
             <button id="top_button" onclick="scroll_up()">HOME</button>
             <h1 id="upload_files">Upload Files</h1>
-            <br/>
-            <div style = "display: flex; width: 35rem;justify-content: space-between;">
-                <label id="music_file_label" for="music_file">
-                <div id="music_file_name">Click to upload<br> summary</div>
-            </label>
-            <input type="file" name="file" id="music_file" accept=".mp3,.wav" required onchange="updateFileName()">
-            <label id="music_file_label" for="music_file">
-                <div id="music_file_name">Click to upload<br>wrong answer note</div>
-            </label>
-            <input type="file" name="file" id="music_file" accept=".mp3,.wav" required onchange="updateFileName()">
-        </div>     
+            
             <form action="/remind/" method="post" enctype="multipart/form-data">
+                <div style="display: flex; width: 35rem; justify-content: space-between;">
+                    <label id="summary_file_label" for="file_sum">
+                        <div id="summary_file_name">Click to upload<br> summary</div>
+                        <input type="file" name="file_sum" id="file_sum" accept=".txt" required onchange="updateFileName()">
+                    </label>
+            
+                    <label id="wrong_answer_file_label" for="file_wrong">
+                        <div id="wrong_answer_file_name">Click to upload<br> wrong answer</div>
+                        <input type="file" name="file_wrong" id="file_wrong" accept=".txt" required onchange="updateFileName()">
+                    </label>
+                </div>
                 <button id="submit_button" type="submit">Submit</button>
             </form>
+            
         </li>
     </ul>
     <script>
