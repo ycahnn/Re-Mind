@@ -24,7 +24,7 @@ def more_info(data):
             }
             
         ],
-        model="gpt-3.5-turbo",
+        model="gpt-4-1106-preview",
     )
     
     gpt3_Prescription_response = response.choices[0].message.content
@@ -36,9 +36,12 @@ with open("./data/summarize.txt", "r", encoding='utf-8') as file:
 content = "요약본:" + summarize
 with open("./data/wrong_answer.txt", "r", encoding='utf-8') as file:
     wrong_note = file.read().strip()
-wrong_note = "오답노트:" + wrong_note
-instructions = "Analyze the content of the wrong answer notes and the summary and add information about the wrong answer to the summary if there's something in the wrong answer that isn't summarized.  A Print only the modified summary."
+
+wrong_note = "오답노트:" + wrong_note + "\n"
+instructions = ": Analyze the contents of the wrong answer note and the summary note and add information about the wrong answer to the summary if the wrong answer has something that isn't in the summary note. Prints added summaries."
 content = content + wrong_note + instructions
+print(content)
+more_info(content)
 
 app = FastAPI()
 
@@ -52,5 +55,5 @@ templates = Jinja2Templates(directory=templates_path)
 async def get_form(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=80)
+#if __name__ == "__main__":
+#    uvicorn.run(app, host="0.0.0.0", port=80)
